@@ -1,12 +1,12 @@
 import 'package:finsire/ApiServices.dart';
 import 'package:flutter/material.dart';
 
-class page1 extends StatefulWidget {
+class Page1 extends StatefulWidget {
   @override
-  State<page1> createState() => _page1State();
+  State<Page1> createState() => _Page1State();
 }
 
-class _page1State extends State<page1> {
+class _Page1State extends State<Page1> {
   int _progress = 0;
 
   @override
@@ -26,7 +26,11 @@ class _page1State extends State<page1> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    var padding = EdgeInsets.all(screenSize.width * 0.04);
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -40,65 +44,74 @@ class _page1State extends State<page1> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: padding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            //mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              _buildHeader(),
-              SizedBox(height: 16),
-              _yellowCard(
-                  'PROGRESS',
-                  '$_progress',
-                  'Out of 1,225 pages\n#5 among friends',
-                  Colors.yellow,
-                  Icons.book),
-              SizedBox(height: 16),
+              _buildHeader(screenSize),
+              SizedBox(height: screenSize.height * 0.02),
+              _buildStatCard(
+                'PROGRESS',
+                '$_progress',
+                'Out of 1,225 pages\n#5 among friends',
+                Colors.yellow,
+                Icons.book,
+                screenSize,
+              ),
+              SizedBox(height: screenSize.height * 0.02),
               Row(
                 children: [
                   Expanded(
-                      child: _buildStatCard(
-                          'TIME',
-                          '6:24',
-                          'Global avg. read time for your progress 7:28\n23% faster',
-                          Colors.orange,
-                          Icons.timer)),
-                  SizedBox(width: 16),
+                    child: _buildStatCard(
+                      'TIME',
+                      '6:24',
+                      'Global avg. read time for your progress 7:28\n23% faster',
+                      Colors.orange,
+                      Icons.timer,
+                      screenSize,
+                    ),
+                  ),
+                  SizedBox(width: screenSize.width * 0.04),
                   Expanded(
-                      child: _buildStatCard(
-                          'STREAK',
-                          '7',
-                          'Day streak, come back tomorrow to keep it up!\n19% more consistent',
-                          Colors.green,
-                          Icons.thunderstorm_sharp)),
+                    child: _buildStatCard(
+                      'STREAK',
+                      '7',
+                      'Day streak, come back tomorrow to keep it up!\n19% more consistent',
+                      Colors.green,
+                      Icons.thunderstorm_sharp,
+                      screenSize,
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 16),
+              SizedBox(height: screenSize.height * 0.02),
               Row(
                 children: [
                   Expanded(
-                      child: _buildStatCard(
-                          'LEVEL',
-                          '2',
-                          '145 reader points to level up!\nTop 5% for this book',
-                          Colors.purple,
-                          Icons.cloud)),
-                  SizedBox(width: 16),
-                  Expanded(child: _buildBadgesCard()),
+                    child: _buildStatCard(
+                      'LEVEL',
+                      '2',
+                      '145 reader points to level up!\nTop 5% for this book',
+                      Colors.purple,
+                      Icons.cloud,
+                      screenSize,
+                    ),
+                  ),
+                  SizedBox(width: screenSize.width * 0.04),
+                  Expanded(child: _buildBadgesCard(screenSize)),
                 ],
               ),
-              SizedBox(height: 16),
-              _buildButton(),
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: screenSize.height * 0.02),
+              _buildButton(screenSize),
+              SizedBox(height: screenSize.height * 0.02),
               Text(
                 "Leaderboard",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              )
+                  color: Colors.white,
+                  fontSize: screenSize.width * 0.05,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ),
@@ -106,57 +119,60 @@ class _page1State extends State<page1> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(Size screenSize) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           children: [
             Container(
-              width: 50,
-              height: 75,
+              width: screenSize.width * 0.13,
+              height: screenSize.width * 0.13,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   image: NetworkImage(
-                      'https://static.vecteezy.com/system/resources/previews/001/234/815/original/zombie-skull-soldier-side-profile-vector.jpg'), // Make sure you have the image in your assets
+                    'https://static.vecteezy.com/system/resources/previews/001/234/815/original/zombie-skull-soldier-side-profile-vector.jpg',
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(
-              width: 10,
-            ),
+            SizedBox(width: screenSize.width * 0.03),
             Text(
               'War and Peace',
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: screenSize.width * 0.05,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-        SizedBox(width: 16),
-
-        //  crossAxisAlignment: CrossAxisAlignment.,
-
+        SizedBox(width: screenSize.width * 0.04),
         Icon(Icons.add, color: Colors.white),
       ],
     );
   }
 
   Widget _buildStatCard(
-      String title, String value, String subtitle, Color color, IconData icon) {
+    String title,
+    String value,
+    String subtitle,
+    Color color,
+    IconData icon,
+    Size screenSize,
+  ) {
     return Container(
-      //  width: 1000,
-      height: 200,
+      height: screenSize.height * 0.2,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(screenSize.width * 0.04),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenSize.width * 0.04),
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -166,33 +182,36 @@ class _page1State extends State<page1> {
                   Text(
                     title,
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontSize: screenSize.width * 0.045,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Icon(Icons.upload_rounded),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: screenSize.height * 0.01),
               Row(
                 children: [
                   Icon(icon),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  SizedBox(width: screenSize.width * 0.02),
                   Text(
                     value,
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.black,
+                      fontSize: screenSize.width * 0.06,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: screenSize.height * 0.01),
               Text(
                 subtitle,
-                style: TextStyle(color: Colors.black, fontSize: 14),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: screenSize.width * 0.035,
+                ),
               ),
             ],
           ),
@@ -201,69 +220,15 @@ class _page1State extends State<page1> {
     );
   }
 
-  Widget _yellowCard(
-      String title, String value, String subtitle, Color color, IconData icon) {
+  Widget _buildBadgesCard(Size screenSize) {
     return Container(
-      width: 1000,
-      // height: 180,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                Icon(Icons.upload)
-              ],
-            ),
-            SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(icon),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  value,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(height: 8),
-            Text(
-              subtitle,
-              style: TextStyle(color: Colors.black, fontSize: 14),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBadgesCard() {
-    return Container(
-      height: 200,
+      height: screenSize.height * 0.2,
       decoration: BoxDecoration(
         color: Colors.blue,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(screenSize.width * 0.04),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenSize.width * 0.04),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -273,31 +238,30 @@ class _page1State extends State<page1> {
                 Text(
                   'Badges',
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.black,
+                    fontSize: screenSize.width * 0.045,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Icon(Icons.upload_rounded)
+                Icon(Icons.upload_rounded),
               ],
             ),
-            SizedBox(height: 30),
+            SizedBox(height: screenSize.height * 0.03),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildBadgeIcon(Icons.book),
-                _buildBadgeIcon(Icons.star),
-                _buildBadgeIcon(Icons.ac_unit),
-                // _buildBadgeIcon(Icons.access_time),
+                _buildBadgeIcon(Icons.book, screenSize),
+                _buildBadgeIcon(Icons.star, screenSize),
+                _buildBadgeIcon(Icons.ac_unit, screenSize),
               ],
             ),
-            SizedBox(height: 20),
+            //SizedBox(height: screenSize.height * 0.01),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildBadgeIcon(Icons.book),
-                _buildBadgeIcon(Icons.star),
-                _buildBadgeIcon(Icons.ac_unit),
-                // _buildBadgeIcon(Icons.access_time),
+                _buildBadgeIcon(Icons.book, screenSize),
+                _buildBadgeIcon(Icons.star, screenSize),
+                _buildBadgeIcon(Icons.ac_unit, screenSize),
               ],
             ),
           ],
@@ -306,30 +270,33 @@ class _page1State extends State<page1> {
     );
   }
 
-  Widget _buildBadgeIcon(IconData icon) {
+  Widget _buildBadgeIcon(IconData icon, Size screenSize) {
     return Container(
-      // width: 20,
-      // height: 20,
+      width: screenSize.width * 0.1,
+      height: screenSize.width * 0.1,
       decoration: BoxDecoration(
         color: Colors.blue,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(screenSize.width * 0.05),
       ),
       child: Icon(icon, color: Colors.black),
     );
   }
 
-  Widget _buildButton() {
+  Widget _buildButton(Size screenSize) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(screenSize.width * 0.04),
               ),
             ),
             onPressed: () {},
-            child: Text('+ Add friends'),
+            child: Text(
+              '+ Add friends',
+              style: TextStyle(fontSize: screenSize.width * 0.045),
+            ),
           ),
         ),
         IconButton(
