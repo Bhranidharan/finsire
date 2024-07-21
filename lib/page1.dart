@@ -39,9 +39,28 @@ class _Page1State extends State<Page1> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Center(
-          child: Text(
-            "Amy's reader stats",
-            style: TextStyle(color: Colors.white),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: screenSize.width * 0.13,
+                height: screenSize.width * 0.13,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      'https://static.vecteezy.com/system/resources/previews/001/234/815/original/zombie-skull-soldier-side-profile-vector.jpg',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: screenSize.width * 0.01),
+              Text(
+                "Amy's reader stats",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ],
           ),
         ),
         backgroundColor: Colors.black,
