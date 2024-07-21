@@ -1,5 +1,6 @@
 import 'package:finsire/widgets/BadgesCardWidget.dart';
 import 'package:finsire/widgets/Header.dart';
+import 'package:finsire/widgets/ProgressCardWidget.dart';
 import 'package:finsire/widgets/StatCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:finsire/ApiServices.dart';
@@ -53,7 +54,7 @@ class _Page1State extends State<Page1> {
             children: [
               Header(screenSize: screenSize),
               SizedBox(height: screenSize.height * 0.02),
-              StatCard(
+              ProgressCard(
                 title: 'PROGRESS',
                 value: '$_progress',
                 subtitle: 'Out of 1,225 pages\n#5 among friends',
@@ -131,6 +132,7 @@ class _Page1State extends State<Page1> {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 100, 99, 99),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(screenSize.width * 0.04),
               ),
@@ -138,7 +140,8 @@ class _Page1State extends State<Page1> {
             onPressed: () {},
             child: Text(
               '+ Add friends',
-              style: TextStyle(fontSize: screenSize.width * 0.045),
+              style: TextStyle(
+                  fontSize: screenSize.width * 0.045, color: Colors.white),
             ),
           ),
         ),
